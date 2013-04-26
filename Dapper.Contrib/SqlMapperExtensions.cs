@@ -194,7 +194,7 @@ namespace Dapper.Contrib.Extensions
                     sbParameterList.Append(", ");
             }
 			ISqlAdapter adapter = GetFormatter(connection);
-			int id = adapter.Insert(connection, transaction, commandTimeout, name, sbColumnList.ToString(), sbParameterList.ToString(),  keyProperties, entityToInsert);
+			long id = adapter.Insert(connection, transaction, commandTimeout, name, sbColumnList.ToString(), sbParameterList.ToString(),  keyProperties, entityToInsert);
 			return id;
         }
 
@@ -476,12 +476,12 @@ namespace Dapper.Contrib.Extensions
 
 public interface ISqlAdapter
 {
-	int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert);
+	long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert);
 }
 
 public class SqlServerAdapter : ISqlAdapter
 {
-	public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
+	public long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
 	{
 		string cmd = String.Format("insert into {0} ({1}) values ({2})", tableName, columnList, parameterList);
 
@@ -489,7 +489,7 @@ public class SqlServerAdapter : ISqlAdapter
 
 		//NOTE: would prefer to use IDENT_CURRENT('tablename') or IDENT_SCOPE but these are not available on SQLCE
 		var r = connection.Query("select @@IDENTITY id", transaction: transaction, commandTimeout: commandTimeout);
-		int id = (int)r.First().id;
+		long id = (int)r.First().id;
 		if (keyProperties.Any())
 			keyProperties.First().SetValue(entityToInsert, id, null);
 		return id;
@@ -498,7 +498,7 @@ public class SqlServerAdapter : ISqlAdapter
 
 public class PostgresAdapter : ISqlAdapter
 {
-	public int Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
+	public long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.AppendFormat("insert into {0} ({1}) values ({2})", tableName, columnList, parameterList);
@@ -522,13 +522,13 @@ public class PostgresAdapter : ISqlAdapter
 		var results = connection.Query(sb.ToString(), entityToInsert, transaction: transaction, commandTimeout: commandTimeout);
 
 		// Return the key by assinging the corresponding property in the object - by product is that it supports compound primary keys
-		int id = 0;
+		long id = 0;
 		foreach (var p in keyProperties)
 		{
 			var value = ((IDictionary<string, object>)results.First())[p.Name.ToLower()];
 			p.SetValue(entityToInsert, value, null);
 			if (id == 0)
-				id = Convert.ToInt32(value);
+				id = Convert.ToInt64(value);
 		}
 		return id;
 	}
