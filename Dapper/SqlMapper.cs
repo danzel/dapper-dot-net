@@ -905,7 +905,7 @@ this IDbConnection cnn, string sql, Func<TFirst, TSecond, TReturn> map, dynamic 
 #endif
 )
         {
-            return MultiMap<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         /// <summary>
@@ -933,27 +933,12 @@ this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, 
 #endif
 )
         {
-            return MultiMap<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
         /// <summary>
         /// Perform a multi mapping query with 4 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(
 #if CSHARP30
             this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param, IDbTransaction transaction, bool buffered, string splitOn, int? commandTimeout, CommandType? commandType
@@ -962,193 +947,112 @@ this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TRetu
 #endif
 )
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
 
 #if !CSHARP30
         /// <summary>
         /// Perform a multi mapping query with 5 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TFifth"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
-#endif
 
-#if !CSHARP30
         /// <summary>
         /// Perform a multi mapping query with 6 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TFifth"></typeparam>
-        /// <typeparam name="TSixth"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth,TSixth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
-#endif
-
-#if !CSHARP30
-        /// <summary>
+        
+		/// <summary>
         /// Perform a multi mapping query with 7 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TFifth"></typeparam>
-        /// <typeparam name="TSixth"></typeparam>
-        /// <typeparam name="TSeventh"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
-#endif
 
-#if !CSHARP30
         /// <summary>
         /// Perform a multi mapping query with 8 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TFifth"></typeparam>
-        /// <typeparam name="TSixth"></typeparam>
-        /// <typeparam name="TSeventh"></typeparam>
-        /// <typeparam name="TEighth"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
-#endif
 
-#if !CSHARP30
         /// <summary>
         /// Perform a multi mapping query with 9 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TFifth"></typeparam>
-        /// <typeparam name="TSixth"></typeparam>
-        /// <typeparam name="TSeventh"></typeparam>
-        /// <typeparam name="TEighth"></typeparam>
-        /// <typeparam name="TNinth"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
-#endif
 
-#if !CSHARP30
         /// <summary>
         /// Perform a multi mapping query with 10 input parameters
         /// </summary>
-        /// <typeparam name="TFirst"></typeparam>
-        /// <typeparam name="TSecond"></typeparam>
-        /// <typeparam name="TThird"></typeparam>
-        /// <typeparam name="TFourth"></typeparam>
-        /// <typeparam name="TFifth"></typeparam>
-        /// <typeparam name="TSixth"></typeparam>
-        /// <typeparam name="TSeventh"></typeparam>
-        /// <typeparam name="TEighth"></typeparam>
-        /// <typeparam name="TNinth"></typeparam>
-        /// <typeparam name="TTenth"></typeparam>
-        /// <typeparam name="TReturn"></typeparam>
-        /// <param name="cnn"></param>
-        /// <param name="sql"></param>
-        /// <param name="map"></param>
-        /// <param name="param"></param>
-        /// <param name="transaction"></param>
-        /// <param name="buffered"></param>
-        /// <param name="splitOn"></param>
-        /// <param name="commandTimeout"></param>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
         public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
-            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
         }
+
+		/// <summary>
+		/// Perform a multi mapping query with 11 input parameters
+		/// </summary>
+		public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+		{
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+		}
+
+		/// <summary>
+		/// Perform a multi mapping query with 12 input parameters
+		/// </summary>
+		public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+		{
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+		}
+
+		/// <summary>
+		/// Perform a multi mapping query with 13 input parameters
+		/// </summary>
+		public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+		{
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, DontMap, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+		}
+
+		/// <summary>
+		/// Perform a multi mapping query with 14 input parameters
+		/// </summary>
+		public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+		{
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, DontMap, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+		}
+
+		/// <summary>
+		/// Perform a multi mapping query with 15 input parameters
+		/// </summary>
+		public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn> map, dynamic param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+		{
+			return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(cnn, sql, map, param as object, transaction, buffered, splitOn, commandTimeout, commandType);
+		}
 #endif
 
 
         partial class DontMap { }
-        static IEnumerable<TReturn> MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(
+		static IEnumerable<TReturn> MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(
             this IDbConnection cnn, string sql, object map, object param, IDbTransaction transaction, bool buffered, string splitOn, int? commandTimeout, CommandType? commandType)
         {
-            var results = MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(cnn, sql, map, param, transaction, splitOn, commandTimeout, commandType, null, null);
+			var results = MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(cnn, sql, map, param, transaction, splitOn, commandTimeout, commandType, null, null);
             return buffered ? results.ToList() : results;
         }
 
 
-        static IEnumerable<TReturn> MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(this IDbConnection cnn, string sql, object map, object param, IDbTransaction transaction, string splitOn, int? commandTimeout, CommandType? commandType, IDataReader reader, Identity identity)
+		static IEnumerable<TReturn> MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(this IDbConnection cnn, string sql, object map, object param, IDbTransaction transaction, string splitOn, int? commandTimeout, CommandType? commandType, IDataReader reader, Identity identity)
         {
-            identity = identity ?? new Identity(sql, commandType, cnn, typeof(TFirst), (object)param == null ? null : ((object)param).GetType(), new[] { typeof(TFirst), typeof(TSecond), typeof(TThird), typeof(TFourth), typeof(TFifth) });
+			identity = identity ?? new Identity(sql, commandType, cnn, typeof(TFirst), (object)param == null ? null : ((object)param).GetType(), new[] { typeof(TFirst), typeof(TSecond), typeof(TThird), typeof(TFourth), typeof(TFifth), typeof(TSixth), typeof(TSeventh), typeof(TEighth), typeof(TNinth), typeof(TTenth), typeof(T11), typeof(T12), typeof(T13), typeof(T14), typeof(T15) });
             CacheInfo cinfo = GetCacheInfo(identity);
 
             IDbCommand ownedCommand = null;
@@ -1168,13 +1072,13 @@ this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TRetu
                 int hash = GetColumnHash(reader);
                 if ((deserializer = cinfo.Deserializer).Func == null || (otherDeserializers = cinfo.OtherDeserializers) == null || hash != deserializer.Hash)
                 {
-                    var deserializers = GenerateDeserializers(new Type[] { typeof(TFirst), typeof(TSecond), typeof(TThird), typeof(TFourth), typeof(TFifth), typeof(TSixth), typeof(TSeventh), typeof(TEighth), typeof(TNinth), typeof(TTenth) }, splitOn, reader);
+					var deserializers = GenerateDeserializers(new Type[] { typeof(TFirst), typeof(TSecond), typeof(TThird), typeof(TFourth), typeof(TFifth), typeof(TSixth), typeof(TSeventh), typeof(TEighth), typeof(TNinth), typeof(TTenth), typeof(T11), typeof(T12), typeof(T13), typeof(T14), typeof(T15) }, splitOn, reader);
                     deserializer = cinfo.Deserializer = new DeserializerState(hash, deserializers[0]);
                     otherDeserializers = cinfo.OtherDeserializers = deserializers.Skip(1).ToArray();
                     SetQueryCache(identity, cinfo);
                 }
 
-                Func<IDataReader, TReturn> mapIt = GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(deserializer.Func, otherDeserializers, map);
+                Func<IDataReader, TReturn> mapIt = GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(deserializer.Func, otherDeserializers, map);
 
                 if (mapIt != null)
                 {
@@ -1203,7 +1107,7 @@ this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TRetu
             }
         }
 
-        private static Func<IDataReader, TReturn> GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(Func<IDataReader, object> deserializer, Func<IDataReader, object>[] otherDeserializers, object map)
+        private static Func<IDataReader, TReturn> GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(Func<IDataReader, object> deserializer, Func<IDataReader, object>[] otherDeserializers, object map)
         {
             switch (otherDeserializers.Length)
             {
@@ -1226,6 +1130,16 @@ this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TRetu
                     return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r));
                 case 9:
                     return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r), (TTenth)otherDeserializers[8](r));
+				case 10:
+					return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r), (TTenth)otherDeserializers[8](r), (T11)otherDeserializers[9](r));
+				case 11:
+					return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r), (TTenth)otherDeserializers[8](r), (T11)otherDeserializers[9](r), (T12)otherDeserializers[10](r));
+				case 12:
+					return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r), (TTenth)otherDeserializers[8](r), (T11)otherDeserializers[9](r), (T12)otherDeserializers[10](r), (T13)otherDeserializers[11](r));
+				case 13:
+					return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r), (TTenth)otherDeserializers[8](r), (T11)otherDeserializers[9](r), (T12)otherDeserializers[10](r), (T13)otherDeserializers[11](r), (T14)otherDeserializers[12](r));
+				case 14:
+					return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r), (TEighth)otherDeserializers[6](r), (TNinth)otherDeserializers[7](r), (TTenth)otherDeserializers[8](r), (T11)otherDeserializers[9](r), (T12)otherDeserializers[10](r), (T13)otherDeserializers[11](r), (T14)otherDeserializers[12](r), (T15)otherDeserializers[13](r));
 
 
 #endif
@@ -2699,7 +2613,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
                 return buffered ? result.ToList() : result;
             }
 
-            private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(object func, string splitOn)
+            private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(object func, string splitOn)
             {
                 var identity = this.identity.ForGrid(typeof(TReturn), new Type[] { 
                     typeof(TFirst), 
@@ -2711,11 +2625,16 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
                     typeof(TSeventh),
                     typeof(TEighth),
                     typeof(TNinth),
-                    typeof(TTenth)
+                    typeof(TTenth),
+					typeof(T11),
+					typeof(T12),
+					typeof(T13),
+					typeof(T14),
+					typeof(T15)
                 }, gridIndex);
                 try
                 {
-                    foreach (var r in SqlMapper.MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(null, null, func, null, null, splitOn, null, null, reader, identity))
+					foreach (var r in SqlMapper.MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, T11, T12, T13, T14, T15, TReturn>(null, null, func, null, null, splitOn, null, null, reader, identity))
                     {
                         yield return r;
                     }
@@ -2744,7 +2663,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             public IEnumerable<TReturn> Read<TFirst, TSecond, TReturn>(Func<TFirst, TSecond, TReturn> func, string splitOn = "id", bool buffered = true)
 #endif
             {
-                var result = MultiReadInternal<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2766,7 +2685,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TReturn>(Func<TFirst, TSecond, TThird, TReturn> func, string splitOn = "id", bool buffered = true)
 #endif
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2789,7 +2708,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TReturn> func, string splitOn = "id", bool buffered = true)
 #endif
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2802,7 +2721,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             /// </summary>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
  
@@ -2811,7 +2730,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             /// </summary>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2820,7 +2739,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             /// </summary>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> func, string splitOn = "id", bool buffered = true)
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2829,7 +2748,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             /// </summary>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, DontMap, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2838,7 +2757,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             /// </summary>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, DontMap, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, DontMap, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 
@@ -2847,7 +2766,7 @@ Type type, IDataReader reader, int startBound = 0, int length = -1, bool returnN
             /// </summary>
             public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn> func, string splitOn = "id", bool buffered = true)
             {
-                var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, TReturn>(func, splitOn);
+				var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TEighth, TNinth, TTenth, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
                 return buffered ? result.ToList() : result;
             }
 #endif
