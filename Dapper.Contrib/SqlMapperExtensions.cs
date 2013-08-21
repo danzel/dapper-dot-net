@@ -21,8 +21,8 @@ namespace Dapper.Contrib.Extensions
             bool IsDirty { get; set; }
         }
 
-        private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> KeyProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
-        private static readonly ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>> TypeProperties = new ConcurrentDictionary<RuntimeTypeHandle, IEnumerable<PropertyInfo>>();
+        private static readonly ConcurrentDictionary<RuntimeTypeHandle, List<PropertyInfo>> KeyProperties = new ConcurrentDictionary<RuntimeTypeHandle, List<PropertyInfo>>();
+        private static readonly ConcurrentDictionary<RuntimeTypeHandle, PropertyInfo[]> TypeProperties = new ConcurrentDictionary<RuntimeTypeHandle, PropertyInfo[]>();
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, string> GetQueries = new ConcurrentDictionary<RuntimeTypeHandle, string>();
         private static readonly ConcurrentDictionary<RuntimeTypeHandle, string> TypeTableName = new ConcurrentDictionary<RuntimeTypeHandle, string>();
 
@@ -31,11 +31,11 @@ namespace Dapper.Contrib.Extensions
 																							{"npgsqlconnection", new PostgresAdapter()}
 																						};
 
-        private static IEnumerable<PropertyInfo> KeyPropertiesCache(Type type)
+        private static List<PropertyInfo> KeyPropertiesCache(Type type)
         {
 
-            IEnumerable<PropertyInfo> pi;
-            if (KeyProperties.TryGetValue(type.TypeHandle,out pi))
+            List<PropertyInfo> pi;
+            if (KeyProperties.TryGetValue(type.TypeHandle, out pi))
             {
                 return pi;
             }
@@ -45,7 +45,7 @@ namespace Dapper.Contrib.Extensions
 
             if (keyProperties.Count == 0)
             {
-                var idProp = allProperties.Where(p => p.Name.ToLower() == "id").FirstOrDefault();
+                var idProp = allProperties.FirstOrDefault(p => p.Name.ToLower() == "id");
                 if (idProp != null)
                 {
                     keyProperties.Add(idProp);
@@ -55,9 +55,9 @@ namespace Dapper.Contrib.Extensions
             KeyProperties[type.TypeHandle] = keyProperties;
             return keyProperties;
         }
-        private static IEnumerable<PropertyInfo> TypePropertiesCache(Type type)
+        private static PropertyInfo[] TypePropertiesCache(Type type)
         {
-            IEnumerable<PropertyInfo> pis;
+            PropertyInfo[] pis;
             if (TypeProperties.TryGetValue(type.TypeHandle, out pis))
             {
                 return pis;
@@ -95,9 +95,9 @@ namespace Dapper.Contrib.Extensions
             if (!GetQueries.TryGetValue(type.TypeHandle, out sql))
             { 
                 var keys = KeyPropertiesCache(type);
-                if (keys.Count() > 1)
+                if (keys.Count > 1)
                     throw new DataException("Get<T> only supports an entity with a single [Key] property");
-                if (keys.Count() == 0)
+                if (keys.Count == 0)
                     throw new DataException("Get<T> only supports en entity with a [Key] property");
 
                 var onlyKey = keys.First();
@@ -149,8 +149,7 @@ namespace Dapper.Contrib.Extensions
                     name = name.Substring(1);
               
                 //NOTE: This as dynamic trick should be able to handle both our own Table-attribute as well as the one in EntityFramework 
-                var tableattr = type.GetCustomAttributes(false).Where(attr => attr.GetType().Name == "TableAttribute").SingleOrDefault() as
-                    dynamic;
+                var tableattr = type.GetCustomAttributes(false).Where(attr => attr.GetType().Name == "TableAttribute").SingleOrDefault() as dynamic;
                 if (tableattr != null)
                     name = tableattr.Name;
                 TypeTableName[type.TypeHandle] = name;
@@ -177,21 +176,19 @@ namespace Dapper.Contrib.Extensions
             var keyProperties = KeyPropertiesCache(type);
             var allPropertiesExceptKey = allProperties.Except(keyProperties);
 
-            for (var i = 0; i < allPropertiesExceptKey.Count(); i++)
-            {
-                var property = allPropertiesExceptKey.ElementAt(i);
-				sbColumnList.AppendFormat("{0}", property.Name);
-                if (i < allPropertiesExceptKey.Count() - 1)
-					sbColumnList.Append(", ");
-            }
-
 			var sbParameterList = new StringBuilder(null);
-			for (var i = 0; i < allPropertiesExceptKey.Count(); i++)
-            {
-                var property = allPropertiesExceptKey.ElementAt(i);
-                sbParameterList.AppendFormat("@{0}", property.Name);
-                if (i < allPropertiesExceptKey.Count() - 1)
-                    sbParameterList.Append(", ");
+	        bool first = true;
+			foreach(var property in allPropertiesExceptKey)
+			{
+				if (!first)
+				{
+					sbColumnList.Append(", ");
+					sbParameterList.Append(", ");
+				}
+				sbColumnList.AppendFormat("{0}", property.Name);
+				sbParameterList.AppendFormat("@{0}", property.Name);
+
+	            first = false;
             }
 			ISqlAdapter adapter = GetFormatter(connection);
 			long id = adapter.Insert(connection, transaction, commandTimeout, name, sbColumnList.ToString(), sbParameterList.ToString(),  keyProperties, entityToInsert);
@@ -227,19 +224,20 @@ namespace Dapper.Contrib.Extensions
             var allProperties = TypePropertiesCache(type);
             var nonIdProps = allProperties.Where(a => !keyProperties.Contains(a));
 
-            for (var i = 0; i < nonIdProps.Count(); i++)
-            {
-                var property = nonIdProps.ElementAt(i);
+	        bool first = true;
+            foreach(var property in nonIdProps)
+			{
+				if (!first)
+					sb.AppendFormat(", ");
                 sb.AppendFormat("{0} = @{1}", property.Name, property.Name);
-                if (i < nonIdProps.Count() - 1)
-                    sb.AppendFormat(", ");
+	            first = false;
             }
             sb.Append(" where ");
-            for (var i = 0; i < keyProperties.Count(); i++)
+            for (var i = 0; i < keyProperties.Count; i++)
             {
-                var property = keyProperties.ElementAt(i);
+                var property = keyProperties[i];
                 sb.AppendFormat("{0} = @{1}", property.Name, property.Name);
-                if (i < keyProperties.Count() - 1)
+                if (i < keyProperties.Count - 1)
                     sb.AppendFormat(" and ");
             }
             var updated = connection.Execute(sb.ToString(), entityToUpdate, commandTimeout: commandTimeout, transaction: transaction);
@@ -476,12 +474,12 @@ namespace Dapper.Contrib.Extensions
 
 public interface ISqlAdapter
 {
-	long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert);
+	long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, List<PropertyInfo> keyProperties, object entityToInsert);
 }
 
 public class SqlServerAdapter : ISqlAdapter
 {
-	public long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
+	public long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, List<PropertyInfo> keyProperties, object entityToInsert)
 	{
 		string cmd = String.Format("insert into {0} ({1}) values ({2})", tableName, columnList, parameterList);
 
@@ -498,7 +496,7 @@ public class SqlServerAdapter : ISqlAdapter
 
 public class PostgresAdapter : ISqlAdapter
 {
-	public long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, IEnumerable<PropertyInfo> keyProperties, object entityToInsert)
+	public long Insert(IDbConnection connection, IDbTransaction transaction, int? commandTimeout, String tableName, string columnList, string parameterList, List<PropertyInfo> keyProperties, object entityToInsert)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.AppendFormat("insert into {0} ({1}) values ({2})", tableName, columnList, parameterList);
@@ -519,13 +517,13 @@ public class PostgresAdapter : ISqlAdapter
 			}
 		}
 
-		var results = connection.Query(sb.ToString(), entityToInsert, transaction: transaction, commandTimeout: commandTimeout);
+		var result = (IDictionary<string, object>)connection.Query(sb.ToString(), entityToInsert, transaction: transaction, commandTimeout: commandTimeout).First();
 
-		// Return the key by assinging the corresponding property in the object - by product is that it supports compound primary keys
+		// Return the key by assigning the corresponding property in the object - by product is that it supports compound primary keys
 		long id = 0;
 		foreach (var p in keyProperties)
 		{
-			var value = ((IDictionary<string, object>)results.First())[p.Name.ToLower()];
+			var value = result[p.Name.ToLower()];
 			p.SetValue(entityToInsert, value, null);
 			if (id == 0)
 				id = Convert.ToInt64(value);
